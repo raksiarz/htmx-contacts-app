@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTMX Contacts App</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://unpkg.com/htmx.org@1.9.4"
+    integrity="sha384-zUfuhFKKZCbHTY6aRR46gxiqszMk5tcHjsVFxnUo8VMus4kHGVdIYVbOYYNlKmHV"
+    crossorigin="anonymous"></script>
+</head>
+
+<body hx-boost="true">
+  <div id="main" hx-get="/contacts" hx-trigger="load" hx-target="tbody">
+    <form>
+      <label for="search">Search</label>
+      <input name="q" id="search"
+             hx-get="/contacts"
+             hx-target="#contacts"
+             hx-trigger="keyup changed delay:200ms"
+             hx-params="*">
+      <button hx-get="/contacts"
+              hx-target="#contacts"
+              hx-include="#search">
+        Search The Contacts
+      </button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>First</th>
+          <th>Last</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="contacts" class="contacts">
+      </tbody>
+    </table>
+
+    <!-- <button hx-get="/contacts/new" hx-target="body">Add Contact</button> -->
+    <a href="/contacts/new" hx-target="body">Add Contact</a>
+
+  </div>
+</body>
+
+</html>
